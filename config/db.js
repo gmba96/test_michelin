@@ -1,3 +1,4 @@
+//const {userSchema} = require('../database/userSchema');
 const { database, host, port, max } = require('pg/lib/defaults');
 
 const {user, password} = require('pg/lib/defaults');
