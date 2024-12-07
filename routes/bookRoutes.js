@@ -10,6 +10,10 @@ router.get('/genre/:genre', bookController.getByGenre);
 router.get('/year/:year', bookController.getByYear);
 router.get('/ratingSup/:rating', bookController.getByRatingSup);
 router.get('/ratingInf/:rating', bookController.getByRatingInf);
+router.get('/orderByYearAsc', bookController.orderByYearAsc);
+router.get('/orderByYearDesc', bookController.orderByYearDesc);
+router.get('/orderByRatingAsc', bookController.orderByRatingAsc);
+router.get('/orderByRatingDesc', bookController.orderByRatingDesc);
 
 // routes pour les requêtes combinées
 router.get('/genre/:genre/year/:year', bookController.getByGenreAndYear);

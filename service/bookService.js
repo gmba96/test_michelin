@@ -133,6 +133,43 @@ bookService.getByGenreAndYearAndRatingInf = async function(genre, year, rating) 
     }
 }
 
+bookService.orderByYearAsc = async function() {
+    try {
+        return await bookDao.orderByYearAsc();
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par année croissante:', err);
+        throw err;
+    }
+}
+
+bookService.orderByYearDesc = async function() {
+    try {
+        return await bookDao.orderByYearDesc();
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par année décroissante:', err);
+        throw err;
+    }
+}
+
+bookService.orderByRatingAsc = async function() {
+    try {
+        return await bookDao.orderByRatingAsc();
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par rating croissant:', err);
+        throw err;
+    }
+}
+
+bookService.orderByRatingDesc = async function() {
+    try {
+        return await bookDao.orderByRatingDesc();
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par rating décroissant:', err);
+        throw err;
+    }
+}
+
+
 //-------------------------------------POST-------------------------------------
 // Fonction pour créer un livre en utilisant le DAO
 bookService.createBook = async function(book) {

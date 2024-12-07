@@ -169,6 +169,47 @@ bookController.getByGenreAndYearAndRatingInf = async function(req, res){
     }
 }
 
+bookController.orderByYearAsc = async function(req, res){
+    try{
+        const books = await bookService.orderByYearAsc();
+        res.json(books);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.orderByYearDesc = async function(req, res){
+    try{
+        const books = await bookService.orderByYearDesc();
+        res.json(books);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.orderByRatingAsc = async function(req, res){
+    try{
+        const books = await bookService.orderByRatingAsc();
+        res.json(books);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.orderByRatingDesc = async function(req, res){
+    try{
+        const books = await bookService.orderByRatingDesc();
+        res.json(books);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+
 //---------------------------------POST--------------------------------------------------------
 
 bookController.createBook = async function(req, res){

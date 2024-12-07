@@ -5,10 +5,13 @@ const bookDao = {};
 // Fonction pour récupérer tous les livres
 bookDao.getBooks = async function () {
     try {
+        // executer la requête SQL
         const result = await pool.query('SELECT * FROM books');
+        // si aucun livre n'est trouvé, renvoyer un message
         if (result.rows.length === 0) {
             return "Aucun livre trouvé";
         }
+        // sinon renvoyer les livres
         return result.rows;
     } catch (err) {
         console.error('Erreur lors de la récupération des livres:', err);
@@ -244,16 +247,73 @@ bookDao.getByGenreAndYearAndRatingInf = async function(genre, year, rating){
     }
 }
 
+//---------------------------------trier dans l'ordre--------------------------------------------------------
+bookDao.orderByYearAsc = async function(){
+    try{
+        // executer la requête SQL et renvoyer les livres dans l'ordre trié
+        const result = await pool.query('SELECT * FROM books ORDER BY year ASC');
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par année:', err);   
+        throw err;
+    }
+}
+
+bookDao.orderByYearDesc = async function(){
+    try{
+        const result = await pool.query('SELECT * FROM books ORDER BY year DESC');
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par année:', err);
+        throw err;
+    }
+}
+
+bookDao.orderByRatingAsc = async function(){
+    try{
+        const result = await pool.query('SELECT * FROM books ORDER BY rating ASC');
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.orderByRatingDesc = async function(){
+    try{
+        const result = await pool.query('SELECT * FROM books ORDER BY rating DESC');
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+
+
 //---------------------------------POST--------------------------------------------------------
 
 bookDao.createBook = async function(book){
     try{
-        if(!book){
-            throw new Error('Livre manquant');
-            return;
+        // verifie si book a les éléments nécessaires pour créer un livre
+        const requiredFields = ['name','author', 'rating', 'year', 'genre'];
+        for (let field of requiredFields) {
+            if (!book[field]) {
+                throw new Error(`Le champ ${field} est manquant`);
+            }
         }
-        const result = await pool.query('INSERT INTO books (name, genre, year, rating) VALUES ($1, $2, $3, $4) RETURNING *', [book.name, book.genre, book.year, book.rating]);
-        return "Livre a été ajouté";
+        // verifie si le livre existe déjà
+        const req = `SELECT * FROM books WHERE ${selectFields.join(' AND ')}}`;
+        const result = await pool.query(req,[book.name, book.genre, book.year, book.rating]);
+        // si le livre n'existe pas, le créer
+        if (result.rows.length === 0) {
+            const result = await pool.query('INSERT INTO books (name, genre, year, rating) VALUES ($1, $2, $3, $4) RETURNING *', [book.name, book.genre, book.year, book.rating]);
+            return "Livre a été ajouté";
+        }
+        // sinon renvoyer un message
+        else{
+            return "Livre existe déjà";
+        }        
     }catch(err){
         console.error('Erreur lors de la création du livre:', err);
         throw err;
@@ -303,6 +363,7 @@ bookDao.updateBook = async function(book){
 
 bookDao.deleteAllBooks = async function(){
     try{
+        // supprimer tous les livres et renvoyer un message
         const result = await pool.query('DELETE FROM books');
         return "Tous les livres ont été supprimés";
     }catch(err){
@@ -313,14 +374,17 @@ bookDao.deleteAllBooks = async function(){
 
 bookDao.deleteBookById = async function(id){
     try{
+        // verifier si le livre existe
         if(!id){
             throw new Error('ID du livre manquant');
             return;
         }
+        // si le livre n'existe pas, renvoyer un message
         const result = await pool.query('SELECT * FROM books WHERE id = $1', [id]);
         if (result.rows.length === 0) {
             return "Livre non trouvé";
-        }        
+        }
+        //sinon supprimer le livre et renvoyer un message
         await pool.query('DELETE FROM books WHERE id = $1', [id]);
         return `Livre dont l'id est ${id} a été supprimé`;
     }catch(err){
