@@ -1,7 +1,9 @@
 const bookService = require('../service/bookService');
 
+const bookController = {};
+
 // Contrôleur pour gérer la requête de récupération de tous les livres
-async function getBooks(req, res) {
+bookController.getBooks = async function (req, res) {
     try {
         // Appel de la méthode getBooks du service 
         // await est utilisé pour attendre la fin de l'exécution de la méthode
@@ -14,7 +16,7 @@ async function getBooks(req, res) {
     }
 }
 
-async function getBookById(req, res) {
+bookController.getBookById = async function(req, res) {
     try{
         const id = req.params.id;
         const book = await bookService.getBookById(id);
@@ -25,8 +27,4 @@ async function getBookById(req, res) {
     }
 }
 
-module.exports = {
-    // Exporter la méthode getBooks
-    getBooks,
-    getBookById
-};
+module.exports = bookController;

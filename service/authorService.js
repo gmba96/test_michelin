@@ -1,12 +1,12 @@
-const bookDao = require('../dao/bookDao');
+const authorDao = require('../dao/authorDao');
 
 // Définir un objet bookService
-const bookService = {};
+const authorService = {};
 
 // Fonction pour récupérer tous les livres en utilisant le DAO
-bookService.getBooks = async function() {
+authorService.getAuthors = async function() {
     try {
-        return await bookDao.getBooks();
+        return await authorDao.getAuthors();
     } catch (err) {
         console.error('Erreur dans le service de récupération des livres:', err);
         throw err;
@@ -14,13 +14,13 @@ bookService.getBooks = async function() {
 };
 
 // Fonction pour récupérer un livre par ID en utilisant le DAO
-bookService.getBookById = async function(id) {
+authorService.getAuthorById = async function(id) {
     try {
-        return await bookDao.getBookById(id);
+        return await authorDao.getAuthorById(id);
     } catch (err) {
         console.error('Erreur dans le service de récupération du livre par ID:', err);
         throw err;
     }
 };
 
-module.exports = bookService;
+module.exports = authorService;

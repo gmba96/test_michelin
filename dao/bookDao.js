@@ -1,7 +1,9 @@
 const pool = require('../config/db');
 
+const bookDao = {};
+
 // Fonction pour récupérer tous les livres
-async function getAllBooks() {
+bookDao.getBooks = async function () {
     try {
         const result = await pool.query('SELECT * FROM books');
         if (result.rows.length === 0) {
@@ -14,7 +16,7 @@ async function getAllBooks() {
     }
 }
 
-async function getBookById(id) {
+bookDao.getBookById = async function(id) {
     try {
         if(!id) {
             throw new Error('ID du livre manquant');
@@ -32,7 +34,4 @@ async function getBookById(id) {
     }
 }
 
-module.exports = {
-    getAllBooks,
-    getBookById
-};
+module.exports = bookDao;
