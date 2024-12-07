@@ -23,4 +23,14 @@ bookService.getBookById = async function(id) {
     }
 };
 
+// Fonction pour récupérer un livre par genre en utilisant le DAO
+bookService.getByGenre = async function(genre) {
+    try {
+        return await bookDao.getByGenre(genre);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par genre:', err);
+        throw err;
+    }
+};
+
 module.exports = bookService;

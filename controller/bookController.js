@@ -27,4 +27,15 @@ bookController.getBookById = async function(req, res) {
     }
 }
 
+bookController.getByGenre = async function(req, res){
+    try{
+        const genre = req.params.genre;
+        const book = await bookService.getByGenre(genre);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
 module.exports = bookController;
