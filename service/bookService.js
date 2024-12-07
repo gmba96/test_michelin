@@ -174,6 +174,7 @@ bookService.orderByRatingDesc = async function() {
 // Fonction pour créer un livre en utilisant le DAO
 bookService.createBook = async function(book) {
     try {
+        console.log('service', book);
         return await bookDao.createBook(book);
     } catch (err) {
         console.error('Erreur dans le service de création du livre:', err);

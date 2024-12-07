@@ -215,6 +215,7 @@ bookController.orderByRatingDesc = async function(req, res){
 bookController.createBook = async function(req, res){
     try{
         const book = req.body;
+        console.log('controller',req.body);
         const result = await bookService.createBook(book);
         res.json(result);
     }catch(err){

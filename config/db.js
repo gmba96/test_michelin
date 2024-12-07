@@ -15,12 +15,10 @@ const pool = new pgsqlPool({
 });
 
 // Fonction pour vérifier la connexion
-let User_model = null;
 (async () => {
     try {
       const client = await pool.connect();
       console.log('Connexion à la base de données réussie.');
-      //User_model = await userSchema(pool).createUser();
       client.release();
     } catch (err) {
       console.error('Erreur de connexion à la base de données:', err);
