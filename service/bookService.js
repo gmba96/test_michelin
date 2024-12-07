@@ -133,7 +133,26 @@ bookService.getByGenreAndYearAndRatingInf = async function(genre, year, rating) 
     }
 }
 
+//-------------------------------------POST-------------------------------------
+// Fonction pour créer un livre en utilisant le DAO
+bookService.createBook = async function(book) {
+    try {
+        return await bookDao.createBook(book);
+    } catch (err) {
+        console.error('Erreur dans le service de création du livre:', err);
+        throw err;
+    }
+};
 
-
+//-------------------------------------PUT-------------------------------------
+// Fonction pour mettre à jour un livre en utilisant le DAO
+bookService.updateBook = async function(book) {
+    try {
+        return await bookDao.updateBook(book);
+    } catch (err) {
+        console.error('Erreur dans le service de mise à jour du livre:', err);
+        throw err;
+    }
+};
 
 module.exports = bookService;

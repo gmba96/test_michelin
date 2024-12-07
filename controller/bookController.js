@@ -2,6 +2,8 @@ const bookService = require('../service/bookService');
 
 const bookController = {};
 
+
+//---------------------------------GET--------------------------------------------------------
 // Contrôleur pour gérer la requête de récupération de tous les livres
 bookController.getBooks = async function (req, res) {
     try {
@@ -167,5 +169,30 @@ bookController.getByGenreAndYearAndRatingInf = async function(req, res){
     }
 }
 
+//---------------------------------POST--------------------------------------------------------
+
+bookController.createBook = async function(req, res){
+    try{
+        const book = req.body;
+        const result = await bookService.createBook(book);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+//---------------------------------PUT--------------------------------------------------------
+
+bookController.updateBook = async function(req, res){
+    try{
+        const book = req.body;
+        const result = await bookService.updateBook(book);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
 
 module.exports = bookController;

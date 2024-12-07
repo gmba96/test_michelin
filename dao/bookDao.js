@@ -244,6 +244,60 @@ bookDao.getByGenreAndYearAndRatingInf = async function(genre, year, rating){
     }
 }
 
+//---------------------------------POST--------------------------------------------------------
+
+bookDao.createBook = async function(book){
+    try{
+        if(!book){
+            throw new Error('Livre manquant');
+            return;
+        }
+        const result = await pool.query('INSERT INTO books (name, genre, year, rating) VALUES ($1, $2, $3, $4) RETURNING *', [book.name, book.genre, book.year, book.rating]);
+        return "Livre a été ajouté";
+    }catch(err){
+        console.error('Erreur lors de la création du livre:', err);
+        throw err;
+    }
+}
+
+//---------------------------------PUT--------------------------------------------------------
+
+bookDao.updateBook = async function(book){
+    try{
+        if(!book){
+            throw new Error('Livre manquant');
+            return;
+        }
+
+        // Construire dynamiquement les éléments de la requête
+        let selectFields = [];
+        let index = 1;
+        for (let key in book) {
+            selectFields.push(`${key} = $${index}`);
+            index++;
+        }
+
+        // si le livre n'existe pas, le créer
+        const req = `SELECT * FROM books WHERE ${selectFields.join(' AND ')}}`;
+        const result = await pool.query(req,[book.name, book.genre, book.year, book.rating]);
+        if (result.rows.length === 0) {
+            await bookDao.createBook(book);
+            return;
+        }
+
+        // mettre à jour le livre si le livre existe
+        else{
+            let id = result.rows[0].id;
+            const req = `UPDATE books SET ${selectFields.join(', ')} WHERE id = $${id}`;
+            await pool.query(req,[book.name, book.genre, book.year, book.rating]);
+            return "Livre a été mis à jour";
+        }
+        
+    }catch(err){
+        console.error('Erreur lors de la mise à jour du livre:', err);
+        throw err;
+    }
+}
 
 
 module.exports = bookDao;

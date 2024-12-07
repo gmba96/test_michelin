@@ -2,6 +2,7 @@ const bookController = require('../controller/bookController');
 const { Router } = require('express');
 const router = Router();
 
+//-------------------routes pour les gets-------------------
 router.get('/', bookController.getBooks);
 router.get('/id/:id', bookController.getBookById);
 router.get('/name/:name', bookController.getByName);
@@ -21,7 +22,9 @@ router.get('/genre/:genre/year/:year/ratingSup/:rating', bookController.getByGen
 router.get('/genre/:genre/year/:year/ratingInf/:rating', bookController.getByGenreAndYearAndRatingInf);
 
 
+//-------------------routes pour les posts-------------------
+router.post('/', bookController.createBook);
 
-
-
+//-------------------routes pour les puts-------------------
+router.put('/', bookController.updateBook);
 module.exports = router;
