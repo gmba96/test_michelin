@@ -195,4 +195,84 @@ bookController.updateBook = async function(req, res){
     }
 }
 
+//---------------------------------DELETE--------------------------------------------------------
+
+bookController.deleteAllBooks = async function(req, res){
+    try{
+        const result = await bookService.deleteAllBooks();
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.deleteBookById = async function(req, res){
+    try{
+        const id = req.params.id;
+        const result = await bookService.deleteBookById(id);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.deleteBooksByGenre = async function(req, res){
+    try{
+        const genre = req.params.genre;
+        const result = await bookService.deleteBooksByGenre(genre);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.deleteBooksByYear = async function(req, res){
+    try{
+        const year = req.params.year;
+        const result = await bookService.deleteBooksByYear(year);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.deleteBooksByRatingSup = async function(req, res){
+    try{
+        const rating = req.params.rating;
+        const result = await bookService.deleteBooksByRatingSup(rating);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.deleteBooksByRatingInf = async function(req, res){
+    try{
+        const rating = req.params.rating;
+        const result = await bookService.deleteBooksByRatingInf(rating);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.deleteBooksByName = async function(req, res){
+    try{
+        const name = req.params.name;
+        const result = await bookService.deleteBooksByName(name);
+        res.json(result);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+
+
 module.exports = bookController;

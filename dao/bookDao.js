@@ -299,5 +299,125 @@ bookDao.updateBook = async function(book){
     }
 }
 
+//---------------------------------DELETE--------------------------------------------------------
+
+bookDao.deleteAllBooks = async function(){
+    try{
+        const result = await pool.query('DELETE FROM books');
+        return "Tous les livres ont été supprimés";
+    }catch(err){
+        console.error('Erreur lors de la suppression de tous les livres:', err);
+        throw err;
+    }
+}
+
+bookDao.deleteBookById = async function(id){
+    try{
+        if(!id){
+            throw new Error('ID du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE id = $1', [id]);
+        if (result.rows.length === 0) {
+            return "Livre non trouvé";
+        }        
+        await pool.query('DELETE FROM books WHERE id = $1', [id]);
+        return `Livre dont l'id est ${id} a été supprimé`;
+    }catch(err){
+        console.error('Erreur lors de la suppression du livre:', err);
+        throw err;
+    }
+}
+
+bookDao.deleteBooksByGenre = async function(genre){
+    try{
+        if(!genre){
+            throw new Error('Genre du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE genre = $1', [genre]);
+        if (result.rows.length === 0) {
+            return "Livre non trouvé";
+        }
+        await pool.query('DELETE FROM books WHERE genre = $1', [genre]);
+        return `Les livres dont le genre est ${genre} ont été supprimés`;
+    }catch(err){
+        console.error('Erreur lors de la suppression du livre par genre:', err);
+        throw err;
+    }
+}
+
+bookDao.deleteBooksByYear = async function(year){
+    try{
+        if(!year){
+            throw new Error('Année du livre manquante');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE year = $1', [year]);
+        if (result.rows.length === 0) {
+            return "Livre non trouvé";
+        }  
+        await pool.query('DELETE FROM books WHERE year = $1', [year]);
+        return `Les livres de l'année ${year} ont été supprimés`;
+    }catch(err){
+        console.error('Erreur lors de la suppression du livre par année:', err);
+        throw err;
+    }
+}
+
+bookDao.deleteBooksByRatingSup = async function(rating){
+    try{
+        if(!rating){
+            throw new Error('Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE rating > $1', [rating]);
+        if (result.rows.length === 0) {
+            return "Livre non trouvé";
+        }  
+        await pool.query('DELETE FROM books WHERE rating > $1', [rating]);
+        return `Les livres dont la notation sont supérieurs à ${rating} ont été supprimés`;
+    }catch(err){
+        console.error('Erreur lors de la suppression du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.deleteBooksByRatingInf = async function(rating){
+    try{
+        if(!rating){
+            throw new Error('Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE rating < $1', [rating]);
+        if (result.rows.length === 0) {
+            return "Livre non trouvé";
+        }  
+        await pool.query('DELETE FROM books WHERE rating > $1', [rating]);
+        return `Les livres dont la notation sont inférieurs à ${rating} ont été supprimés`;
+    }catch(err){
+        console.error('Erreur lors de la suppression du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.deleteBooksByName = async function(name){
+    try{
+        if(!name){
+            throw new Error('Nom du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE name = $1', [name]);
+        if (result.rows.length === 0) {
+            return "Livre non trouvé";
+        } 
+        await pool.query('DELETE FROM books WHERE name = $1', [name]);
+        return `Le livre dont le nom est ${name} a été supprimé`;
+    }catch(err){
+        console.error('Erreur lors de la suppression du livre par nom:', err);
+        throw err;
+    }
+}
+
 
 module.exports = bookDao;

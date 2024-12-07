@@ -155,4 +155,72 @@ bookService.updateBook = async function(book) {
     }
 };
 
+//-------------------------------------DELETE-------------------------------------
+
+bookService.deleteAllBooks = async function() {
+    try {
+        return await bookDao.deleteAllBooks();
+    } catch (err) {
+        console.error('Erreur dans le service de suppression de tous les livres:', err);
+        throw err;
+    }
+}
+
+bookService.deleteBookById = async function(id) {
+    try {
+        return await bookDao.deleteBookById(id);
+    } catch (err) {
+        console.error('Erreur dans le service de suppression du livre:', err);
+        throw err;
+    }
+}
+
+bookService.deleteBooksByGenre = async function(genre) {
+    try {
+        return await bookDao.deleteBooksByGenre(genre);
+    } catch (err) {
+        console.error('Erreur dans le service de suppression des livres par genre:', err);
+        throw err;
+    }
+}
+
+bookService.deleteBooksByYear = async function(year) {
+    try {
+        return await bookDao.deleteBooksByYear(year);
+    } catch (err) {
+        console.error('Erreur dans le service de suppression des livres par année:', err);
+        throw err;
+    }
+}
+
+bookService.deleteBooksByRatingSup = async function(rating) {
+    try {
+        return await bookDao.deleteBooksByRatingSup(rating);
+    } catch (err) {
+        console.error('Erreur dans le service de suppression des livres par rating:', err);
+        throw err;
+    }
+}
+
+bookService.deleteBooksByRatingInf = async function(rating) {
+    try {
+        return await bookDao.deleteBooksByRatingInf(rating);
+    } catch (err) {
+        console.error('Erreur dans le service de suppression des livres par rating:', err);
+        throw err;
+    }
+}
+
+bookService.deleteBooksByName = async function(name) {
+    try {
+        return await bookDao.deleteBooksByName(name);
+    } catch (err) {
+        console.error('Erreur dans le service de suppression des livres par nom:', err);
+        throw err;
+    }
+}
+
+
+
+
 module.exports = bookService;

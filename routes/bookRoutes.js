@@ -27,4 +27,15 @@ router.post('/', bookController.createBook);
 
 //-------------------routes pour les puts-------------------
 router.put('/', bookController.updateBook);
+
+
+//-------------------routes pour les deletes-------------------
+router.delete('/', bookController.deleteAllBooks);
+router.delete('/id/:id', bookController.deleteBookById);
+router.delete('/genre/:genre', bookController.deleteBooksByGenre);
+router.delete('/year/:year', bookController.deleteBooksByYear);
+router.delete('/ratingSup/:rating', bookController.deleteBooksByRatingSup);
+router.delete('/ratingInf/:rating', bookController.deleteBooksByRatingInf);
+router.delete('/name/:name', bookController.deleteBooksByName);
+
 module.exports = router;
