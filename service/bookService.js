@@ -79,4 +79,41 @@ bookService.getByGenreAndYear = async function(genre, year) {
     }
 };
 
+bookService.getByGenreAndRatingSup = async function(genre, rating) {
+    try {
+        return await bookDao.getByGenreAndRatingSup(genre, rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par genre et rating:', err);
+        throw err;
+    }
+}
+
+bookService.getByGenreAndRatingInf = async function(genre, rating) {
+    try {
+        return await bookDao.getByGenreAndRatingInf(genre, rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par genre et rating:', err);
+        throw err;
+    }
+}
+
+bookService.getByYearAndRatingSup = async function(year, rating) {
+    try {
+        return await bookDao.getByYearAndRatingSup(year, rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par année et rating:', err);
+        throw err;
+    }
+}
+
+bookService.getByYearAndRatingInf = async function(year, rating) {
+    try {
+        return await bookDao.getByYearAndRatingInf(year, rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par année et rating:', err);
+        throw err;
+    }
+}
+
+
 module.exports = bookService;

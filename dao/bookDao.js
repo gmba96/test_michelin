@@ -136,5 +136,78 @@ bookDao.getByGenreAndYear = async function(genre, year){
     }
 }
 
+bookDao.getByGenreAndRatingSup = async function(genre, rating){
+    try{
+        if(!genre || !rating){
+            throw new Error('Genre  ou Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE genre = $1 AND rating > $2', [genre, rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }
+    catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.getByGenreAndRatingInf = async function(genre, rating){
+    try{
+        if(!genre || !rating){
+            throw new Error('Genre  ou Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE genre = $1 AND rating < $2', [genre, rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }
+    catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.getByYearAndRatingSup = async function(year, rating){
+    try{
+        if(!year || !rating){
+            throw new Error('Année  ou Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE year = $1 AND rating > $2', [year, rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }
+    catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.getByYearAndRatingInf = async function(year, rating){
+    try{
+        if(!year || !rating){
+            throw new Error('Année  ou Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE year = $1 AND rating < $2', [year, rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }
+    catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+
 
 module.exports = bookDao;

@@ -93,6 +93,55 @@ bookController.getByGenreAndYear = async function(req, res){
     }
 }
 
+bookController.getByGenreAndRatingSup = async function(req, res){
+    try{
+        const genre = req.params.genre;
+        const rating = req.params.rating;
+        const book = await bookService.getByGenreAndRatingSup(genre, rating);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.getByGenreAndRatingInf = async function(req, res){
+    try{
+        const genre = req.params.genre;
+        const rating = req.params.rating;
+        const book = await bookService.getByGenreAndRatingInf(genre, rating);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.getByYearAndRatingSup = async function(req, res){
+    try{
+        const year = req.params.year;
+        const rating = req.params.rating;
+        const book = await bookService.getByYearAndRatingSup(year, rating);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+bookController.getByYearAndRatingInf = async function(req, res){
+    try{
+        const year = req.params.year;
+        const rating = req.params.rating;
+        const book = await bookService.getByYearAndRatingInf(year, rating);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
+
+
 
 
 module.exports = bookController;

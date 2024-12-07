@@ -9,6 +9,15 @@ router.get('/genre/:genre', bookController.getByGenre);
 router.get('/year/:year', bookController.getByYear);
 router.get('/ratingSup/:rating', bookController.getByRatingSup);
 router.get('/ratingInf/:rating', bookController.getByRatingInf);
+
+// routes pour les requêtes combinées
 router.get('/genre/:genre/year/:year', bookController.getByGenreAndYear);
+router.get('/genre/:genre/ratingSup/:rating', bookController.getByGenreAndRatingSup);
+router.get('/genre/:genre/ratingInf/:rating', bookController.getByGenreAndRatingInf);
+router.get('/year/:year/ratingSup/:rating', bookController.getByYearAndRatingSup);
+router.get('/year/:year/ratingInf/:rating', bookController.getByYearAndRatingInf);
+
+
+
 
 module.exports = router;
