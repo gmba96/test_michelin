@@ -51,4 +51,90 @@ bookDao.getByGenre = async function(genre){
     }
 }
 
+bookDao.getByYear = async function(year){
+    try{
+        if(!year){
+            throw new Error('Année du livre manquante');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE year = $1', [year]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par année:', err);
+        throw err;
+    }
+}
+
+bookDao.getByRatingSup = async function(rating){
+    try{
+        if(!rating){
+            throw new Error('Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE rating > $1', [rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.getByRatingInf = async function(rating){
+    try{
+        if(!rating){
+            throw new Error('Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE rating < $1', [rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.getByName = async function(name){
+    try{
+        if(!name){
+            throw new Error('Nom du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE name = $1', [name]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par nom:', err);
+        throw err;
+    }
+}
+
+bookDao.getByGenreAndYear = async function(genre, year){
+    try{
+        if(!genre || !year){
+            throw new Error('Genre  ou Année du livre manquant');  
+            return;
+        }  
+        const result = await pool.query('SELECT * FROM books WHERE genre = $1 AND year = $2', [genre, year]);       
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }catch(err){
+        console.error('Erreur lors de la récupération du livre par année:', err);
+        throw err;
+    }
+}
+
+
 module.exports = bookDao;

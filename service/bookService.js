@@ -33,4 +33,50 @@ bookService.getByGenre = async function(genre) {
     }
 };
 
+// Fonction pour récupérer un livre par année en utilisant le DAO
+bookService.getByYear = async function(year) {
+    try {
+        return await bookDao.getByYear(year);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par année:', err);
+        throw err;
+    }
+};
+
+bookService.getByRatingSup = async function(rating) {
+    try {
+        return await bookDao.getByRatingSup(rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par rating:', err);
+        throw err;
+    }
+};
+
+bookService.getByRatingInf = async function(rating) {
+    try {
+        return await bookDao.getByRatingInf(rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par rating:', err);
+        throw err;
+    }
+};
+
+bookService.getByName = async function(name) {
+    try {
+        return await bookDao.getByName(name);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par nom:', err);
+        throw err;
+    }
+};
+
+bookService.getByGenreAndYear = async function(genre, year) {
+    try {
+        return await bookDao.getByGenreAndYear(genre, year);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par genre et année:', err);
+        throw err;
+    }
+};
+
 module.exports = bookService;
