@@ -208,6 +208,42 @@ bookDao.getByYearAndRatingInf = async function(year, rating){
     }
 }
 
+bookDao.getByGenreAndYearAndRatingSup = async function(genre, year, rating){
+    try{
+        if(!genre || !year || !rating){
+            throw new Error('Genre ou Année ou Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE genre = $1 AND year = $2 AND rating > $3', [genre, year, rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }
+    catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
+bookDao.getByGenreAndYearAndRatingInf = async function(genre, year, rating){
+    try{
+        if(!genre || !year || !rating){
+            throw new Error('Genre ou Année ou Rating du livre manquant');
+            return;
+        }
+        const result = await pool.query('SELECT * FROM books WHERE genre = $1 AND year = $2 AND rating < $3', [genre, year, rating]);
+        if (result.rows.length === 0) {
+            return "Aucun livre trouvé";
+        }
+        return result.rows;
+    }
+    catch(err){
+        console.error('Erreur lors de la récupération du livre par rating:', err);
+        throw err;
+    }
+}
+
 
 
 module.exports = bookDao;

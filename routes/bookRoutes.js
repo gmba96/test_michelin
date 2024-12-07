@@ -17,6 +17,10 @@ router.get('/genre/:genre/ratingInf/:rating', bookController.getByGenreAndRating
 router.get('/year/:year/ratingSup/:rating', bookController.getByYearAndRatingSup);
 router.get('/year/:year/ratingInf/:rating', bookController.getByYearAndRatingInf);
 
+router.get('/genre/:genre/year/:year/ratingSup/:rating', bookController.getByGenreAndYearAndRatingSup);
+router.get('/genre/:genre/year/:year/ratingInf/:rating', bookController.getByGenreAndYearAndRatingInf);
+
+
 
 
 

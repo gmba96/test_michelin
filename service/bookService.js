@@ -115,5 +115,25 @@ bookService.getByYearAndRatingInf = async function(year, rating) {
     }
 }
 
+bookService.getByGenreAndYearAndRatingSup = async function(genre, year, rating) {
+    try {
+        return await bookDao.getByGenreAndYearAndRatingSup(genre, year, rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par genre, année et rating:', err);
+        throw err;
+    }
+}
+
+bookService.getByGenreAndYearAndRatingInf = async function(genre, year, rating) {
+    try {
+        return await bookDao.getByGenreAndYearAndRatingInf(genre, year, rating);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par genre, année et rating:', err);
+        throw err;
+    }
+}
+
+
+
 
 module.exports = bookService;

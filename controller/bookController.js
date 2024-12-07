@@ -141,7 +141,31 @@ bookController.getByYearAndRatingInf = async function(req, res){
     }
 }
 
+bookController.getByGenreAndYearAndRatingSup = async function(req, res){
+    try{
+        const genre = req.params.genre;
+        const year = req.params.year;
+        const rating = req.params.rating;
+        const book = await bookService.getByGenreAndYearAndRatingSup(genre, year, rating);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
 
+bookController.getByGenreAndYearAndRatingInf = async function(req, res){
+    try{
+        const genre = req.params.genre;
+        const year = req.params.year;
+        const rating = req.params.rating;
+        const book = await bookService.getByGenreAndYearAndRatingInf(genre, year, rating);
+        res.json(book);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Erreur serveur');
+    }
+}
 
 
 module.exports = bookController;
