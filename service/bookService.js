@@ -1,4 +1,4 @@
-const bookDao = require('../dao/book-dao');
+const bookDao = require('../dao/bookDao');
 
 // Fonction pour récupérer tous les livres en utilisant le DAO
 async function getBooks() {
@@ -10,6 +10,16 @@ async function getBooks() {
     }
 }
 
+async function getBookById(id) {
+    try {
+        return await bookDao.getBookById(id);
+    } catch (err) {
+        console.error('Erreur dans le service de récupération du livre par ID:', err);
+        throw err;
+    }
+}
+
 module.exports = {
-    getBooks
+    getBooks,
+    getBookById
 };
